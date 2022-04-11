@@ -1,0 +1,19 @@
+{
+  "name": "routing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "smrozowski",
+  "license": "ISC",
+  "dependencies": {
+    "lit": "^2.2.1",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}

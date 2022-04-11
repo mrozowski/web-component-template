@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "newLine": "LF",
+        "outDir": "dist",
+        "rootDir": "./app",
+        "target": "es2017",
+        "sourceMap": true,
+        "declaration": true,
+        "jsx": "preserve",
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitAny": false,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": [
+        "app/**/*",
+        "app/page-definition.ts"
+    ],
+    "exclude": [
+        ".git",
+        "node_modules"
+    ]
+}
