@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,EACI,0BAA2B,CAC3B,6BAA8B,CAC9B,qBACJ,CAEA,UAEI,QAAS,CACT,SACJ","file":"style.9a5b65b5.css","sourceRoot":"..\\view","sourcesContent":["* {\r\n    -moz-box-sizing: border-box;\r\n    -webkit-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n}\r\n\r\nbody,\r\nhtml {\r\n    margin: 0;\r\n    padding: 0;\r\n}"]}
