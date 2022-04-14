@@ -7,7 +7,7 @@ class _Router {
     private currentPage?: Pages;
     private previousPage?: Pages;
     private page404?: Pages;
-    private defaultPath?: Pages;
+    private defaultPath: Pages = Pages.DEFAULT;
     private prefix: string = "";
     private fullPrefix: string = "";
     private isHashEnabled: boolean = false;
@@ -74,9 +74,11 @@ class _Router {
 
 
     linktToDefaultPage() {
+
         this.currentPage = this.defaultPath;
-        this.changeHistory(this.currentPage!);
+        this.changeHistory(this.currentPage);
         window.dispatchEvent(this.createRouteEvent());
+
     }
 
     linkTo = (path: string, properties?: Map<string, any>): void => {

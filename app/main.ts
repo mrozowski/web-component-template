@@ -18,7 +18,7 @@ export class Main extends Controller {
     constructor() {
         super();
         this.setDefault404Page(Pages.NOT_FOUND);
-        this.setDefaultPage(Pages.HOME);
+        // this.setDefaultPage(Pages.HOME);
         this.setPathPrefix("/web-component-template");
         this.enableHashRouting();
     }
