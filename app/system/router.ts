@@ -3,9 +3,14 @@ import { PathVariableNotSpecifiedError, VariableNotFoundInPathError } from "./ex
 
 class _Router {
 
+    private static HASH: string = "/#";
     private currentPage?: Pages;
+    private previousPage?: Pages;
     private page404?: Pages;
     private defaultPath?: Pages;
+    private prefix: string = "";
+    private fullPrefix: string = "";
+    private isHashEnabled: boolean = false;
     private properties: Map<string, any> = new Map();
 
     isActive = (path: Pages): boolean => {
@@ -21,7 +26,16 @@ class _Router {
     }
 
     isDefaultPath(path: string): boolean {
-        return path == this.defaultPath;
+        let pathName = path;
+        if (this.prefix != "") {
+            pathName = path.replace(this.prefix, "");
+        }
+        return pathName == this.defaultPath;
+    }
+
+    isPreviousPage(path: string) {
+        const requestedPage = this.findDefinedPage(path);
+        return this.previousPage === requestedPage;
     }
 
     setDefaultPage(path: Pages) {
@@ -32,30 +46,85 @@ class _Router {
         this.page404 = page404;
     }
 
+    setPrefix(prefix: string) {
+        this.prefix = prefix;
+        this.fullPrefix = prefix;
+        if (this.isHashEnabled)
+            this.fullPrefix += _Router.HASH;
+    }
+
+    removePrefixFromPath(path: string): string {
+        const withoutPrefix = path.replace(this.prefix, "");
+        return withoutPrefix.replace(_Router.HASH, "");
+    }
+
+
+    enableHashRouting() {
+        this.isHashEnabled = true;
+        this.fullPrefix += _Router.HASH;
+    }
+
+    getPrefix(): string {
+        return this.prefix;
+    }
+
+    getFullPrefix(): string {
+        return this.fullPrefix;
+    }
+
+
     linktToDefaultPage() {
         this.currentPage = this.defaultPath;
-        window.history.pushState(null, "", this.currentPage)
+        this.changeHistory(this.currentPage!);
         window.dispatchEvent(this.createRouteEvent());
     }
 
     linkTo = (path: string, properties?: Map<string, any>): void => {
-        const definedPage = this.findDefinedPage(path);
-
-        if (definedPage !== undefined) {
-            this.currentPage = definedPage;
-            window.history.pushState(properties, "", path);
+        if (path.trim() == "" || path.trim() == "/") return this.linktToDefaultPage();
+        const requestedPage = this.findDefinedPage(path);
+        if (requestedPage !== undefined) {
+            if (this.currentPage == requestedPage) return;
+            this.previousPage = this.currentPage;
+            this.currentPage = requestedPage;
+            this.changeHistory(path, properties);
         } else {
+            this.previousPage = this.currentPage;
             if (this.page404 !== undefined) {
                 this.currentPage = this.page404;
 
             } else {
                 this.currentPage = this.defaultPath;
             }
-            window.history.pushState(properties, "", this.currentPage);
+            this.changeHistory(this.currentPage!, properties);
         }
 
         properties ? this.properties = properties : this.properties.clear();
         window.dispatchEvent(this.createRouteEvent());
+    }
+
+    linkTo2 = (path: string, properties?: Map<string, any>): void => {
+        if (path.trim() == "" || path.trim() == "/") return this.linktToDefaultPage();
+
+        const requestedPage = this.findDefinedPage(path);
+
+        if (requestedPage !== undefined) {
+            if (this.currentPage == requestedPage) return;
+            this.previousPage = this.currentPage;
+            this.currentPage = requestedPage;
+            if (this.previousPage != requestedPage) {
+                window.history.replaceState(properties, "", this.fullPrefix + path);
+            }
+
+            else
+                this.changeHistory(path, properties);
+        }
+
+        properties ? this.properties = properties : this.properties.clear();
+        window.dispatchEvent(this.createRouteEvent());
+    }
+
+    private changeHistory(path: string, properties?: Map<string, any>) {
+        window.history.pushState(properties, "", this.fullPrefix + path);
     }
 
     private findDefinedPage(path: string): Pages | undefined {

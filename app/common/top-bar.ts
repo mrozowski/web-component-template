@@ -13,8 +13,6 @@ export class Navigation extends LitElement {
     about: any;
 
     render() {
-        console.log("nav-bar render");
-
         return html`
         <nav>
             <button-e .text=${"Home"} @click=${() => LinkTo(Pages.HOME)}>  </button-e>

@@ -24,8 +24,6 @@ export class Home extends LitElement {
     }
 
     render() {
-        console.log("home - render");
-
         return html`
         <section>
             <span>Home</span>

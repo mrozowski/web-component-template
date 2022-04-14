@@ -8,7 +8,6 @@ export class Details extends LitElement {
     detailsId: any;
 
     render() {
-        console.log("details - render");
         return html`
         <section>
             <span>Details ${this.detailsId}</span>

@@ -8,7 +8,6 @@ import "../common/button"
 export class NotFound extends LitElement {
 
     render() {
-        console.log("not-found - render");
         return html`
         <section>
             <span>Page not found</span>

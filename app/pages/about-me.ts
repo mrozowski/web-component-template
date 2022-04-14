@@ -8,7 +8,6 @@ export class AboutMe extends LitElement {
     myValue: any;
 
     render() {
-        console.log("about me - render");
         return html`
         <section>
             <span>AboutMe</span>
@@ -18,8 +17,6 @@ export class AboutMe extends LitElement {
     }
 
     static get styles() {
-
-
         return css`
         section{
             background-color: lightgoldenrodyellow;

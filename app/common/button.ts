@@ -9,8 +9,6 @@ export class Navigation extends LitElement {
     text: string = "";
 
     render() {
-        console.log("button render");
-
         return html`
         <div>
             ${this.text}
